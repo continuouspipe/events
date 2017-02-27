@@ -1,0 +1,8 @@
+{
+    "name": "continuous-pipe/events",
+    "autoload": {
+        "psr-0": {
+            "ContinuousPipe\\": "src/"
+        }
+    }
+}
