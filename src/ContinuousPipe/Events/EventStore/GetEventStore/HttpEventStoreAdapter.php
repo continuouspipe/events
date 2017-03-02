@@ -3,6 +3,8 @@
 namespace ContinuousPipe\Events\GetEventStore\EventStore;
 
 use ContinuousPipe\Events\EventStore\EventStore;
+use ContinuousPipe\Events\EventStore\EventStoreException;
+use ContinuousPipe\Events\EventStore\EventWithMetadata;
 use EventStore\EventStore as EventStoreClient;
 use EventStore\WritableEvent;
 use JMS\Serializer\SerializerInterface;
@@ -50,6 +52,11 @@ class HttpEventStoreAdapter implements EventStore
         }
 
         return $events;
+    }
+
+    public function readWithMetadata(string $stream): array
+    {
+        throw new EventStoreException('Reading stream with metadata is not yet supported for GetEventStore');
     }
 
     private function client()
