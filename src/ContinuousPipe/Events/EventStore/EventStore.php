@@ -24,4 +24,15 @@ interface EventStore
      * @return mixed[]
      */
     public function read(string $stream) : array;
+
+    /**
+     * Read all the events from the given stream, with their metadata.
+     *
+     * @param string $stream
+     *
+     * @throws EventStoreException
+     *
+     * @return EventWithMetadata[]
+     */
+    public function readWithMetadata(string $stream) : array;
 }
