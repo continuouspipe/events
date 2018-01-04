@@ -9,6 +9,7 @@ use ContinuousPipe\Events\EventStore\EventWithMetadata;
 use ContinuousPipe\Events\TimeResolver\TimeResolver;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -47,11 +48,14 @@ class DoctrineEventStore implements EventStore
      */
     public function store(string $stream, $event)
     {
+        $serializationContext = SerializationContext::create();
+        $serializationContext->setAttribute('should-obfuscate', false);
+
         $dataTransferObject = new EventDto(
             Uuid::uuid4(),
             $stream,
             get_class($event),
-            $this->serializer->serialize($event, 'json'),
+            $this->serializer->serialize($event, 'json', $serializationContext),
             $this->timeResolver->resolve()
         );
 
